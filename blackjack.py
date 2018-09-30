@@ -1,6 +1,7 @@
 import os
 import random
 
+# Defining the suits and ranks of a given card
 suits = ["Spades", "Hearts", "Diamonds", "Clubs"]
 ranks = ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"]
 
@@ -140,13 +141,14 @@ def game():
     clear()
     enter_game = False
     while enter_game is False:
+        # Catching invalid input for number of players
         try:
             num_players = int(input("Welcome to BlackJack!\nHow many players are playing? (Up to 3)"))
             if num_players > 3 or num_players < 1:
                 print("That is an invalid number of players. Try again!")
             else:
                 enter_game = True
-        except ValueError as e:
+        except ValueError:
             print("Please type an integer between 0 and 3")
 
     print("The game is starting! Each player gets 500 chips to start out with!")
@@ -167,6 +169,7 @@ def game():
             player_hand = []
             valid_bid = False
             while valid_bid is False:
+                # Catching invalid input for amount to bid
                 try:
                     bid = int(input("How much would you like to bid? You have " + str(player_chips[i]) + " chips."))
                     if bid < 0 or bid > player_chips[i]:

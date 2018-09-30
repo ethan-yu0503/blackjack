@@ -2,7 +2,7 @@ import unittest
 from blackjack import *
 
 
-class TestBlackJack(unittest.TestCase):
+class TestEndResults(unittest.TestCase):
     def setUp(self):
         self.dealer_hand = []
         self.player_hand = []
@@ -120,7 +120,7 @@ class TestBlackJack(unittest.TestCase):
         self.dealer_hand = [("Hearts", 7), ("Clubs", 10)]
         player_one_hand = [("Diamonds", 10), ("Spades", 10)]
         player_two_hand = [("Spades", 7), ("Hearts", "Jack")]
-        player_three_hand = [("Spades", 5), ("Spades", "Jack"), ("Hearts", "Jack")]
+        player_three_hand = [("Spades", 5), ("Spades", "Jack"), ("Diamonds", "Jack")]
         self.player_hands.append(player_one_hand)
         self.player_hands.append(player_two_hand)
         self.player_hands.append(player_three_hand)
@@ -129,6 +129,21 @@ class TestBlackJack(unittest.TestCase):
         reveal_results(self.dealer_hand, self.player_hands, test_player_chips, test_player_bids)
         self.assertEqual(test_player_chips[0], 600)
         self.assertEqual(test_player_chips[1], 500)
+        self.assertEqual(test_player_chips[2], 400)
+
+    def test_everybody_busts_everyone_loses(self):
+        self.dealer_hand = [("Hearts", 7), ("Clubs", 10), ("Hearts", 10)]
+        player_one_hand = [("Diamonds", 5), ("Diamonds", 10), ("Spades", 10)]
+        player_two_hand = [("Spades", 7), ("Hearts", "Jack"), ("Hearts", "Queen")]
+        player_three_hand = [("Spades", 5), ("Spades", "Jack"), ("Diamonds", "Jack")]
+        self.player_hands.append(player_one_hand)
+        self.player_hands.append(player_two_hand)
+        self.player_hands.append(player_three_hand)
+        test_player_chips = [500, 500, 500]
+        test_player_bids = [100, 100, 100]
+        reveal_results(self.dealer_hand, self.player_hands, test_player_chips, test_player_bids)
+        self.assertEqual(test_player_chips[0], 400)
+        self.assertEqual(test_player_chips[1], 400)
         self.assertEqual(test_player_chips[2], 400)
 
 if __name__ == "__main__":
